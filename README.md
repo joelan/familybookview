@@ -2,4 +2,4 @@
 仿facebooklistviewitem里面的图片布局格局
 
 截图：
-[image](https://github.com/joelan/familybookview/raw/master/screenshoot/Screenshot_2016-07-16.png)
+![image](https://github.com/joelan/familybookview/raw/master/screenshoot/Screenshot_2016-07-16.png)
