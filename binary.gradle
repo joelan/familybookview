@@ -1,0 +1,110 @@
+apply plugin: 'com.github.dcendents.android-maven'
+apply plugin: 'com.jfrog.bintray'
+
+def siteUrl = 'https://github.com/joelan/familybookview'	//Homepage URL of the library
+def gitUrl = 'https://github.com/joelan/familybookview'	//Git repository url
+def issueUrl = 'https://github.com/joelan/familybookview/issues'	//issue url of the library
+
+def inception = '2017'
+def userid = 'joelan'
+def emailx="joe544351900@sina.cn"
+def username ="Joelanlrq"
+def versionx="1.0.1"
+
+group = "com.lrq.view"	//
+def groupx="com.lrq.view"
+install {
+    repositories.mavenInstaller {
+        // This generates POM.xml with proper parameters
+        pom {
+            project {
+                packaging 'aar'
+                // Add your description here
+                name 'FBView'
+                url siteUrl
+
+                // Archive
+                groupId groupx
+                artifactId archivesBaseName
+                //version project.version
+                version versionx
+
+
+                // Set your license
+                licenses {
+                    license {
+                        name 'The Apache Software License, Version 2.0'
+                        url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+                    }
+                }
+                developers {
+                    developer {
+                        id userid //your user ID
+                        name username //your name
+                        email emailx//your email
+                    }
+
+
+                }
+                scm {
+                    connection gitUrl
+                    developerConnection gitUrl
+                    url siteUrl
+                }
+
+
+            /*    dependencies {
+
+                    dependency{
+                        groupId "com.facebook.rebound"
+                        artifactId "rebound""version " "0.3.8"//同dependencies
+                    }
+                }
+*/
+
+            }
+        }
+    }
+}
+task sourcesJar(type: Jar) {
+    from android.sourceSets.main.java.srcDirs
+    classifier = 'sources'
+}
+/*task javadoc(type: Javadoc) {
+    source = android.sourceSets.main.java.srcDirs
+    classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
+}*/
+
+task javadoc(type: Javadoc) {
+    source = android.sourceSets.main.java.srcDirs
+    classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
+    options.encoding = "UTF-8"
+}
+task javadocJar(type: Jar, dependsOn: javadoc) {
+    classifier = 'javadoc'
+    from javadoc.destinationDir
+}
+artifacts {
+    archives javadocJar
+    archives sourcesJar
+}
+Properties properties = new Properties()
+properties.load(project.rootProject.file('local.properties').newDataInputStream())
+bintray {
+
+    user = userid
+    key = ""
+    configurations = ['archives']
+    pkg {
+        repo = "maven"	//发布到Bintray的哪个仓库
+        name = "facebookview"	//发布到Bintray上的名字
+        desc = "resemble Fbview  customlistview "	//项目描述
+        websiteUrl = siteUrl
+        vcsUrl = gitUrl
+        issueTrackerUrl = issueUrl
+        licenses = ["Apache-2.0"]
+        labels = ['android',"customlistview"]	//标签
+        publish = true
+        publicDownloadNumbers = true
+    }
+}

@@ -5,14 +5,14 @@
     android:orientation="vertical"
     android:layout_height="match_parent"  tools:context=".MainActivity">
 
-    <com.example.administrator.myapplication.FamilyBookView
+    <com.viewlrq.customview.FBView
         android:layout_width="match_parent"
 
         android:id="@+id/fbview"
         android:layout_height="wrap_content">
 
 
-    </com.example.administrator.myapplication.FamilyBookView>
+    </com.viewlrq.customview.FBView>
 
 
 </LinearLayout>

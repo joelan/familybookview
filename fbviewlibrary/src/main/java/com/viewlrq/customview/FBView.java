@@ -1,49 +1,76 @@
-package com.example.administrator.myapplication;
+package com.viewlrq.customview;
 
 import android.app.Activity;
 import android.content.Context;
 import android.content.res.TypedArray;
-import android.support.v7.widget.LinearLayoutCompat;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.Gravity;
-import android.view.ViewGroup;
-import android.widget.ImageButton;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.nostra13.universalimageloader.core.DisplayImageOptions;
-import com.nostra13.universalimageloader.core.ImageLoader;
-
 import java.util.List;
+
+import crazyjone.fbviewlibrary.R;
 
 /**
  * Created by Administrator on 2016/7/12.
  */
-public class FamilyBookView extends LinearLayout {
+public class FBView extends LinearLayout {
 
 
-    Context context;
+    public int getOvernumtextsize() {
+        return overnumtextsize;
+    }
 
-    int picnum;
-    public FamilyBookView(Context context) {
+    public void setOvernumtextsize(int overnumtextsize) {
+        this.overnumtextsize = overnumtextsize;
+    }
+
+    private   int overnumtextsize=20;
+    private FbViewItemonclickListener itemclicklistener;
+
+    public FbViewItemonclickListener getItemclicklistener() {
+        return itemclicklistener;
+    }
+
+    public void setItemclicklistener(FbViewItemonclickListener itemclicklistener) {
+        this.itemclicklistener = itemclicklistener;
+    }
+
+
+    private   Context context;
+
+    public float getGapdp() {
+        return gapdp;
+    }
+
+    public void setGapdp(float gapdp) {
+        this.gapdp = gapdp;
+    }
+
+    private  int picnum;
+
+    private  float gapdp=3f;
+    public FBView(Context context) {
         super(context);
         this.context=context;
     }
 
 
 
-    public FamilyBookView(Context context, AttributeSet attrs, int defStyleAttr) {
+    public FBView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         this.context=context;
     }
 
-    public FamilyBookView(Context context, AttributeSet attrs) {
+    public FBView(Context context, AttributeSet attrs) {
         super(context, attrs);
         this.context=context;
 
@@ -86,8 +113,7 @@ public class FamilyBookView extends LinearLayout {
 
                 iv.setAdjustViewBounds(true);
 
-                if(!TextUtils.isEmpty(url))
-                    ImageLoader.getInstance().displayImage(url,iv);
+
                 addView(iv);
                 iv.setBackgroundColor(getResources().getColor(android.R.color.holo_blue_light));
                 break;
@@ -105,9 +131,11 @@ public class FamilyBookView extends LinearLayout {
                 LinearLayout.LayoutParams lp=   new LayoutParams(0,dm.widthPixels/2);
                 LinearLayout.LayoutParams lp2=   new LayoutParams(0,dm.widthPixels/2);
 
-                lp.rightMargin= (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 1.5f,dm);
+             /*   lp.rightMargin= (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 1.5f,dm);
 
-                lp2.leftMargin=(int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 1.5f,dm);
+                lp2.leftMargin=(int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 1.5f,dm);*/
+
+
 
                 lp.weight=1;
                 lp2.weight=1;
@@ -117,7 +145,15 @@ public class FamilyBookView extends LinearLayout {
 
                 iv1.setScaleType(ImageView.ScaleType.CENTER_CROP);
                 iv2.setScaleType(ImageView.ScaleType.CENTER_CROP);
+
+
                 addView(iv1);
+                int gapwidth=(int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, gapdp,dm);
+                View gapview=new View(context);
+                gapview.setBackgroundColor(0x00ffffff);
+                gapview.setLayoutParams(new LayoutParams(gapwidth,LayoutParams.MATCH_PARENT));
+
+                addView(gapview);
 
                 addView(iv2);
 
@@ -143,7 +179,7 @@ public class FamilyBookView extends LinearLayout {
 
                 LinearLayout.LayoutParams linlp=new LinearLayout.LayoutParams((int)(dmx.widthPixels*(1f/3f)),(int)(dmx.widthPixels*(2f/3f)));
 
-                linlp.leftMargin=(int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 1.5f,dmx);
+              //  linlp.leftMargin=(int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 1.5f,dmx);
                 lin.setLayoutParams(linlp);
 
                 LinearLayout.LayoutParams lpx=   new LayoutParams(dmx.widthPixels/3,dmx.widthPixels/3);
@@ -154,11 +190,11 @@ public class FamilyBookView extends LinearLayout {
 
               /*  lpx.weight=1;
                 lp2x.weight=1;*/
-                lpx.bottomMargin=(int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 1.5f,dmx);
-                lp2x.topMargin=(int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 1.5f,dmx);
+            /*    lpx.bottomMargin=(int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 1.5f,dmx);
+                lp2x.topMargin=(int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 1.5f,dmx);*/
 
                 lp3.weight=1;
-                lp3.rightMargin=(int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 1.5f,dmx);
+           //     lp3.rightMargin=(int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 1.5f,dmx);
 
 
                 iv1x.setLayoutParams(lpx);
@@ -168,17 +204,34 @@ public class FamilyBookView extends LinearLayout {
                 iv1x.setScaleType(ImageView.ScaleType.CENTER_CROP);
                 iv2x.setScaleType(ImageView.ScaleType.CENTER_CROP);
                 iv3.setScaleType(ImageView.ScaleType.CENTER_CROP);
+
+
                 lin.addView(iv1x);
+
+                int gapwidthx=(int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, gapdp,dmx);
+                View gapviewx=new View(context);
+                gapviewx.setBackgroundColor(0x00ffffff);
+                gapviewx.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT,gapwidthx));
+
+                lin.addView(gapviewx);
+
                 lin.addView(iv2x);
 
                 addView(iv3);
+
+
+
+                int gapwidthxs=(int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, gapdp,dmx);
+                View gapviewxs=new View(context);
+                gapviewxs.setBackgroundColor(0x00ffffff);
+                gapviewxs.setLayoutParams(new LayoutParams(gapwidthxs,LayoutParams.MATCH_PARENT));
+
+
+                addView(gapviewxs);
+
                 addView(lin);
-                if(!TextUtils.isEmpty(url))
-                    ImageLoader.getInstance().displayImage(url,iv1x);
-                if(!TextUtils.isEmpty(url))
-                    ImageLoader.getInstance().displayImage(url,iv2x);
-                if(!TextUtils.isEmpty(url))
-                    ImageLoader.getInstance().displayImage(url,iv3);
+
+
 
                 iv1x.setBackgroundColor(getResources().getColor(android.R.color.holo_blue_light));
 
@@ -201,7 +254,7 @@ public class FamilyBookView extends LinearLayout {
 
                 LinearLayout.LayoutParams lin4lp=new LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT,(int)(dmx4.widthPixels*(1f/3f)));
 
-                lin4lp.topMargin=(int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,3f,dmx4);
+           //     lin4lp.topMargin=(int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,3f,dmx4);
                 lin4.setLayoutParams(lin4lp);
 
                 ImageView iv41=new ImageView(context);
@@ -220,10 +273,10 @@ public class FamilyBookView extends LinearLayout {
                 iv42p.weight=1;
                 iv43p.weight=1;
                 iv44p.weight=1;
-                iv42p.rightMargin=(int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 3*(2f/3f),dmx4);
-                iv43p.leftMargin=(int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 3*(1f/3f),dmx4);
-                iv43p.rightMargin=(int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,3*(1f/3f),dmx4);
-                iv44p.leftMargin=(int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 3*(2f/3f),dmx4);
+              //  iv42p.rightMargin=(int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 3*(2f/3f),dmx4);
+             //   iv43p.leftMargin=(int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 3*(1f/3f),dmx4);
+              //  iv43p.rightMargin=(int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,3*(1f/3f),dmx4);
+              //  iv44p.leftMargin=(int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 3*(2f/3f),dmx4);
 
 
                 iv42.setLayoutParams(iv42p);
@@ -238,22 +291,45 @@ public class FamilyBookView extends LinearLayout {
 
                 iv44.setScaleType(ImageView.ScaleType.CENTER_CROP);
 
+
+
+
                 lin4.addView(iv42);
+
+
+                int gapwidthxss=(int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, gapdp,dmx4);
+                View gapviewxss=new View(context);
+                gapviewxss.setBackgroundColor(0x00ffffff);
+                gapviewxss.setLayoutParams(new LayoutParams(gapwidthxss,LayoutParams.MATCH_PARENT));
+
+
+                lin4.  addView(gapviewxss);
+
                 lin4.addView(iv43);
+
+
+                int gapwidthxsss=(int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, gapdp,dmx4);
+                View gapviewxsss=new View(context);
+                gapviewxsss.setBackgroundColor(0x00ffffff);
+                gapviewxsss.setLayoutParams(new LayoutParams(gapwidthxsss,LayoutParams.MATCH_PARENT));
+
+
+                lin4.  addView(gapviewxsss);
+
                 lin4.addView(iv44);
 
                 addView(iv41);
+
+                int gapwidthxssss=(int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, gapdp,dmx4);
+                View gapviewxssss=new View(context);
+                gapviewxssss.setBackgroundColor(0x00ffffff);
+                gapviewxssss.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT,gapwidthxssss));
+                addView(gapviewxssss);
+
                 addView(lin4);
 
 
-                if(!TextUtils.isEmpty(url))
-                    ImageLoader.getInstance().displayImage(url,iv41);
-                if(!TextUtils.isEmpty(url))
-                    ImageLoader.getInstance().displayImage(url,iv42);
-                if(!TextUtils.isEmpty(url))
-                    ImageLoader.getInstance().displayImage(url,iv43);
-                if(!TextUtils.isEmpty(url))
-                    ImageLoader.getInstance().displayImage(url,iv44);
+
 
                 iv41.setBackgroundColor(getResources().getColor(android.R.color.holo_blue_light));
 
@@ -277,13 +353,13 @@ public class FamilyBookView extends LinearLayout {
                 LinearLayout lin5down=new LinearLayout(context);
                 lin5down.setOrientation(LinearLayout.HORIZONTAL);
                 LinearLayout.LayoutParams lin5lp=new LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT,(int)(dmx5.widthPixels*(1f/3f)));
-                lin5lp.topMargin=(int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 3f/2f,dmx5);
+               // lin5lp.topMargin=(int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 3f/2f,dmx5);
                 lin5down.setLayoutParams(lin5lp);
 
                 LinearLayout lin5up=new LinearLayout(context);
                 lin5up.setOrientation(LinearLayout.HORIZONTAL);
                 LinearLayout.LayoutParams linlpup=new LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT,(int)(dmx5.widthPixels*(1f/2f)));
-                linlpup.bottomMargin=(int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 3f/2f,dmx5);
+                //linlpup.bottomMargin=(int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 3f/2f,dmx5);
                 lin5up.setLayoutParams(linlpup);
 
 
@@ -313,13 +389,13 @@ public class FamilyBookView extends LinearLayout {
                 iv54p.weight=1;
                 iv55p.weight=1;
 
-                iv51p.rightMargin=(int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 1.5f,dmx5);
-                iv52p.leftMargin=(int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 1.5f,dmx5);
+              //  iv51p.rightMargin=(int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 1.5f,dmx5);
+               // iv52p.leftMargin=(int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 1.5f,dmx5);
 
-                iv53p.rightMargin=(int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 3*(2f/3f),dmx5);
-                iv54p.leftMargin=(int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 3*(1f/3f),dmx5);
-                iv54p.rightMargin=(int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,3*(1f/3f),dmx5);
-                iv55p.leftMargin=(int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 3*(2f/3f),dmx5);
+              //  iv53p.rightMargin=(int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 3*(2f/3f),dmx5);
+              //  iv54p.leftMargin=(int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 3*(1f/3f),dmx5);
+              //  iv54p.rightMargin=(int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,3*(1f/3f),dmx5);
+               // iv55p.leftMargin=(int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 3*(2f/3f),dmx5);
 
 
                iv51.setLayoutParams(iv51p);
@@ -343,27 +419,48 @@ public class FamilyBookView extends LinearLayout {
 
 
                 lin5up.addView(iv51);
+                int gapwidthxsssss=(int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, gapdp,dmx5);
+                View gapviewxsssss=new View(context);
+                gapviewxsssss.setBackgroundColor(0x00ffffff);
+                gapviewxsssss.setLayoutParams(new LayoutParams(gapwidthxsssss,LayoutParams.MATCH_PARENT));
+                lin5up.  addView(gapviewxsssss);
+
                 lin5up.addView(iv52);
 
+
                 lin5down.addView(iv53);
+
+                int gapwidthxsssssx=(int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, gapdp,dmx5);
+                View gapviewxsssssx=new View(context);
+                gapviewxsssssx.setBackgroundColor(0x00ffffff);
+                gapviewxsssssx.setLayoutParams(new LayoutParams(gapwidthxsssssx,LayoutParams.MATCH_PARENT));
+                lin5down.   addView(gapviewxsssssx);
+
                 lin5down.addView(iv54);
+
+
+                int gapwidthxsssssxs=(int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, gapdp,dmx5);
+                View gapviewxsssssxs=new View(context);
+                gapviewxsssssxs.setBackgroundColor(0x00ffffff);
+                gapviewxsssssxs.setLayoutParams(new LayoutParams(gapwidthxsssssxs,LayoutParams.MATCH_PARENT));
+                lin5down.  addView(gapviewxsssssxs);
+
                 lin5down.addView(iv55);
 
                 //ddView(iv51);
                 addView(lin5up);
+
+
+                int gapwidthxsssssxss=(int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, gapdp,dmx5);
+                View gapviewxsssssxss=new View(context);
+                gapviewxsssssxss.setBackgroundColor(0x00ffffff);
+                gapviewxsssssxss.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT,gapwidthxsssssxss));
+                addView(gapviewxsssssxss);
+
                 addView(lin5down);
 
 
-                if(!TextUtils.isEmpty(url))
-                    ImageLoader.getInstance().displayImage(url,iv51);
-                if(!TextUtils.isEmpty(url))
-                    ImageLoader.getInstance().displayImage(url,iv52);
-                if(!TextUtils.isEmpty(url))
-                    ImageLoader.getInstance().displayImage(url,iv53);
-                if(!TextUtils.isEmpty(url))
-                    ImageLoader.getInstance().displayImage(url,iv54);
-                if(!TextUtils.isEmpty(url))
-                    ImageLoader.getInstance().displayImage(url,iv54);
+
 
                 iv51.setBackgroundColor(getResources().getColor(android.R.color.holo_blue_light));
 
@@ -380,7 +477,7 @@ public class FamilyBookView extends LinearLayout {
 
     }
 
-    public void setPics(List<String> urls)
+    public void setPics(List<String> urls,Loader loader)
     {
 
         if(urls!=null) {
@@ -412,7 +509,16 @@ public class FamilyBookView extends LinearLayout {
                     iv.setAdjustViewBounds(true);
 
                     if (!TextUtils.isEmpty(urls.get(0)))
-                        ImageLoader.getInstance().displayImage(urls.get(0), iv, DisplayImageOptions.createSimple());
+                    ImageLoader.getInstance(loader).loadImagefromeNetwork(urls.get(0), iv);
+                    iv.setOnClickListener(new OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            if(itemclicklistener!=null)
+                                itemclicklistener.onItemClickListener(v,0);
+                        }
+                    });
+
+
                     addView(iv);
               /*      iv.setBackgroundColor(getResources().getColor(android.R.color.holo_blue_light));*/
                     break;
@@ -430,9 +536,9 @@ public class FamilyBookView extends LinearLayout {
                     LinearLayout.LayoutParams lp = new LayoutParams(0, dm.widthPixels / 2);
                     LinearLayout.LayoutParams lp2 = new LayoutParams(0, dm.widthPixels / 2);
 
-                    lp.rightMargin = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 1.5f, dm);
+                  //  lp.rightMargin = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 1.5f, dm);
 
-                    lp2.leftMargin = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 1.5f, dm);
+                   // lp2.leftMargin = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 1.5f, dm);
 
                     lp.weight = 1;
                     lp2.weight = 1;
@@ -443,14 +549,38 @@ public class FamilyBookView extends LinearLayout {
                     iv1.setScaleType(ImageView.ScaleType.CENTER_CROP);
                     iv2.setScaleType(ImageView.ScaleType.CENTER_CROP);
                     addView(iv1);
+                    int gapwidth=(int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, gapdp,dm);
+                    View gapview=new View(context);
+                    gapview.setBackgroundColor(0x00ffffff);
+                    gapview.setLayoutParams(new LayoutParams(gapwidth,LayoutParams.MATCH_PARENT));
+
+                    addView(gapview);
 
                     addView(iv2);
 
 
                     if (!TextUtils.isEmpty(urls.get(0)))
-                        ImageLoader.getInstance().displayImage(urls.get(0), iv1, DisplayImageOptions.createSimple());
+                        ImageLoader.getInstance(loader).loadImagefromeNetwork(urls.get(0),iv1);
                     if (!TextUtils.isEmpty(urls.get(1)))
-                        ImageLoader.getInstance().displayImage(urls.get(1), iv2, DisplayImageOptions.createSimple());
+                   ImageLoader.getInstance(loader).loadImagefromeNetwork(urls.get(1),iv2);
+
+                    iv1.setOnClickListener(new OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+
+                            if(itemclicklistener!=null)
+                                itemclicklistener.onItemClickListener(v,0);
+                        }
+                    });
+
+                    iv2.setOnClickListener(new OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            if(itemclicklistener!=null)
+                                itemclicklistener.onItemClickListener(v,1);
+                        }
+                    });
+
               /*      iv1.setBackgroundColor(getResources().getColor(android.R.color.holo_blue_light));
 
                     iv2.setBackgroundColor(getResources().getColor(android.R.color.holo_green_dark));*/
@@ -473,7 +603,7 @@ public class FamilyBookView extends LinearLayout {
 
                     LinearLayout.LayoutParams linlp = new LinearLayout.LayoutParams((int) (dmx.widthPixels * (1f / 3f)), (int) (dmx.widthPixels * (2f / 3f)));
 
-                    linlp.leftMargin = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 1.5f, dmx);
+                  //  linlp.leftMargin = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 1.5f, dmx);
                     lin.setLayoutParams(linlp);
 
                     LinearLayout.LayoutParams lpx = new LayoutParams(dmx.widthPixels / 3, dmx.widthPixels / 3);
@@ -484,11 +614,11 @@ public class FamilyBookView extends LinearLayout {
 
               /*  lpx.weight=1;
                 lp2x.weight=1;*/
-                    lpx.bottomMargin = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 1.5f, dmx);
-                    lp2x.topMargin = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 1.5f, dmx);
+                    //lpx.bottomMargin = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 1.5f, dmx);
+                   // lp2x.topMargin = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 1.5f, dmx);
 
                     lp3.weight = 1;
-                    lp3.rightMargin = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 1.5f, dmx);
+                  //  lp3.rightMargin = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 1.5f, dmx);
 
 
                     iv1x.setLayoutParams(lpx);
@@ -498,22 +628,66 @@ public class FamilyBookView extends LinearLayout {
                     iv1x.setScaleType(ImageView.ScaleType.CENTER_CROP);
                     iv2x.setScaleType(ImageView.ScaleType.CENTER_CROP);
                     iv3.setScaleType(ImageView.ScaleType.CENTER_CROP);
+
                     lin.addView(iv1x);
+
+                    int gapwidthx=(int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, gapdp,dmx);
+                    View gapviewx=new View(context);
+                    gapviewx.setBackgroundColor(0x00ffffff);
+                    gapviewx.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT,gapwidthx));
+
+                    lin.addView(gapviewx);
                     lin.addView(iv2x);
 
                     addView(iv3);
+
+
+                    int gapwidthxs=(int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, gapdp,dmx);
+                    View gapviewxs=new View(context);
+                    gapviewxs.setBackgroundColor(0x00ffffff);
+                    gapviewxs.setLayoutParams(new LayoutParams(gapwidthxs,LayoutParams.MATCH_PARENT));
+
+
+                    addView(gapviewxs);
+
+
+
                     addView(lin);
+
                     if (!TextUtils.isEmpty(urls.get(0)))
-                        ImageLoader.getInstance().displayImage(urls.get(0), iv1x);
+                  ImageLoader.getInstance(loader).loadImagefromeNetwork(urls.get(0), iv1x);
                     if (!TextUtils.isEmpty(urls.get(1)))
-                        ImageLoader.getInstance().displayImage(urls.get(1), iv2x);
+                      ImageLoader.getInstance(loader).loadImagefromeNetwork(urls.get(1), iv2x);
                     if (!TextUtils.isEmpty(urls.get(2)))
-                        ImageLoader.getInstance().displayImage(urls.get(2), iv3);
+                   ImageLoader.getInstance(loader).loadImagefromeNetwork(urls.get(2), iv3);
 
                 /*    iv1x.setBackgroundColor(getResources().getColor(android.R.color.holo_blue_light));
 
                     iv2x.setBackgroundColor(getResources().getColor(android.R.color.holo_green_dark));
                     iv3.setBackgroundColor(getResources().getColor(android.R.color.holo_orange_dark));*/
+
+                iv1x.setOnClickListener(new OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if(itemclicklistener!=null)
+                            itemclicklistener.onItemClickListener(v,0);
+                    }
+                });
+                    iv2x.setOnClickListener(new OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            if(itemclicklistener!=null)
+                                itemclicklistener.onItemClickListener(v,1);
+                        }
+                    });
+                iv3.setOnClickListener(new OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if(itemclicklistener!=null)
+                            itemclicklistener.onItemClickListener(v,2);
+                    }
+                });
+
                     break;
 
                 case 4:
@@ -531,7 +705,7 @@ public class FamilyBookView extends LinearLayout {
 
                     LinearLayout.LayoutParams lin4lp = new LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT, (int) (dmx4.widthPixels * (1f / 3f)));
 
-                    lin4lp.topMargin = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 3f, dmx4);
+                  //  lin4lp.topMargin = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 3f, dmx4);
                     lin4.setLayoutParams(lin4lp);
 
                     ImageView iv41 = new ImageView(context);
@@ -550,10 +724,10 @@ public class FamilyBookView extends LinearLayout {
                     iv42p.weight = 1;
                     iv43p.weight = 1;
                     iv44p.weight = 1;
-                    iv42p.rightMargin = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 3 * (2f / 3f), dmx4);
-                    iv43p.leftMargin = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 3 * (1f / 3f), dmx4);
-                    iv43p.rightMargin = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 3 * (1f / 3f), dmx4);
-                    iv44p.leftMargin = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 3 * (2f / 3f), dmx4);
+                  //  iv42p.rightMargin = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 3 * (2f / 3f), dmx4);
+                  //  iv43p.leftMargin = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 3 * (1f / 3f), dmx4);
+                   // iv43p.rightMargin = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 3 * (1f / 3f), dmx4);
+                   // iv44p.leftMargin = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 3 * (2f / 3f), dmx4);
 
 
                     iv42.setLayoutParams(iv42p);
@@ -568,28 +742,88 @@ public class FamilyBookView extends LinearLayout {
 
                     iv44.setScaleType(ImageView.ScaleType.CENTER_CROP);
 
+
+
                     lin4.addView(iv42);
+
+
+                    int gapwidthxss=(int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, gapdp,dmx4);
+                    View gapviewxss=new View(context);
+                    gapviewxss.setBackgroundColor(0x00ffffff);
+                    gapviewxss.setLayoutParams(new LayoutParams(gapwidthxss,LayoutParams.MATCH_PARENT));
+
+
+                    lin4.addView(gapviewxss);
+
                     lin4.addView(iv43);
+
+
+                    int gapwidthxsss=(int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, gapdp,dmx4);
+                    View gapviewxsss=new View(context);
+                    gapviewxsss.setBackgroundColor(0x00ffffff);
+                    gapviewxsss.setLayoutParams(new LayoutParams(gapwidthxsss,LayoutParams.MATCH_PARENT));
+
+
+                    lin4. addView(gapviewxsss);
+
                     lin4.addView(iv44);
 
                     addView(iv41);
+
+                    int gapwidthxssss=(int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, gapdp,dmx4);
+                    View gapviewxssss=new View(context);
+                    gapviewxssss.setBackgroundColor(0x00ffffff);
+                    gapviewxssss.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT,gapwidthxssss));
+                    addView(gapviewxssss);
+
                     addView(lin4);
 
-
                     if (!TextUtils.isEmpty(urls.get(0)))
-                        ImageLoader.getInstance().displayImage(urls.get(0), iv41,DisplayImageOptions.createSimple());
+                    ImageLoader.getInstance(loader).loadImagefromeNetwork(urls.get(0),iv41);
                     if (!TextUtils.isEmpty(urls.get(1)))
-                        ImageLoader.getInstance().displayImage(urls.get(1), iv42,DisplayImageOptions.createSimple());
+                      ImageLoader.getInstance(loader).loadImagefromeNetwork(urls.get(1),iv42);
                     if (!TextUtils.isEmpty(urls.get(2)))
-                        ImageLoader.getInstance().displayImage(urls.get(2), iv43,DisplayImageOptions.createSimple());
+                    ImageLoader.getInstance(loader).loadImagefromeNetwork(urls.get(2),iv43);
                     if (!TextUtils.isEmpty(urls.get(3)))
-                        ImageLoader.getInstance().displayImage(urls.get(3), iv44,DisplayImageOptions.createSimple());
+                 ImageLoader.getInstance(loader).loadImagefromeNetwork(urls.get(3),iv44);
 
   /*                  iv41.setBackgroundColor(getResources().getColor(android.R.color.holo_blue_light));
 
                     iv42.setBackgroundColor(getResources().getColor(android.R.color.holo_green_dark));
                     iv43.setBackgroundColor(getResources().getColor(android.R.color.holo_orange_dark));
                     iv44.setBackgroundColor(getResources().getColor(android.R.color.holo_purple));*/
+                    iv41.setOnClickListener(new OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            if(itemclicklistener!=null)
+                                itemclicklistener.onItemClickListener(v,0);
+                        }
+                    });
+                    iv42.setOnClickListener(new OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            if(itemclicklistener!=null)
+                                itemclicklistener.onItemClickListener(v,1);
+                        }
+                    });
+
+                    iv43.setOnClickListener(new OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            if(itemclicklistener!=null)
+                                itemclicklistener.onItemClickListener(v,2);
+                        }
+                    });
+
+                    iv44.setOnClickListener(new OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            if(itemclicklistener!=null)
+                                itemclicklistener.onItemClickListener(v,3);
+                        }
+                    });
+
+
 
                     break;
 
@@ -607,13 +841,13 @@ public class FamilyBookView extends LinearLayout {
                     LinearLayout lin5down = new LinearLayout(context);
                     lin5down.setOrientation(LinearLayout.HORIZONTAL);
                     LinearLayout.LayoutParams lin5lp = new LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT, (int) (dmx5.widthPixels * (1f / 3f)));
-                    lin5lp.topMargin = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 3f / 2f, dmx5);
+                  //  lin5lp.topMargin = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 3f / 2f, dmx5);
                     lin5down.setLayoutParams(lin5lp);
 
                     LinearLayout lin5up = new LinearLayout(context);
                     lin5up.setOrientation(LinearLayout.HORIZONTAL);
                     LinearLayout.LayoutParams linlpup = new LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT, (int) (dmx5.widthPixels * (1f / 2f)));
-                    linlpup.bottomMargin = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 3f / 2f, dmx5);
+                  //  linlpup.bottomMargin = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 3f / 2f, dmx5);
                     lin5up.setLayoutParams(linlpup);
 
 
@@ -652,13 +886,13 @@ public class FamilyBookView extends LinearLayout {
 
                     iv55p.weight = 1;
 
-                    iv51p.rightMargin = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 1.5f, dmx5);
-                    iv52p.leftMargin = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 1.5f, dmx5);
+                 //   iv51p.rightMargin = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 1.5f, dmx5);
+                   // iv52p.leftMargin = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 1.5f, dmx5);
 
-                    iv53p.rightMargin = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 3 * (2f / 3f), dmx5);
-                    iv54p.leftMargin = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 3 * (1f / 3f), dmx5);
-                    iv54p.rightMargin = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 3 * (1f / 3f), dmx5);
-                    iv55p.leftMargin = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 3 * (2f / 3f), dmx5);
+                   // iv53p.rightMargin = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 3 * (2f / 3f), dmx5);
+                  //  iv54p.leftMargin = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 3 * (1f / 3f), dmx5);
+                  //  iv54p.rightMargin = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 3 * (1f / 3f), dmx5);
+                 //   iv55p.leftMargin = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 3 * (2f / 3f), dmx5);
 
 
                     iv51.setLayoutParams(iv51p);
@@ -683,32 +917,99 @@ public class FamilyBookView extends LinearLayout {
                     iv55.setScaleType(ImageView.ScaleType.CENTER_CROP);
 
 
+
                     lin5up.addView(iv51);
+
+                    int gapwidthxsssss=(int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, gapdp,dmx5);
+                    View gapviewxsssss=new View(context);
+                    gapviewxsssss.setBackgroundColor(0x00ffffff);
+                    gapviewxsssss.setLayoutParams(new LayoutParams(gapwidthxsssss,LayoutParams.MATCH_PARENT));
+                    lin5up. addView(gapviewxsssss);
+
                     lin5up.addView(iv52);
 
 
-                    rela.addView(iv55);
-                    rela.addView(ivt5txt);
-
                     lin5down.addView(iv53);
+
+                    int gapwidthxsssssx=(int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, gapdp,dmx5);
+                    View gapviewxsssssx=new View(context);
+                    gapviewxsssssx.setBackgroundColor(0x00ffffff);
+                    gapviewxsssssx.setLayoutParams(new LayoutParams(gapwidthxsssssx,LayoutParams.MATCH_PARENT));
+                    lin5down.  addView(gapviewxsssssx);
+
                     lin5down.addView(iv54);
+
+
+                    int gapwidthxsssssxs=(int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, gapdp,dmx5);
+                    View gapviewxsssssxs=new View(context);
+                    gapviewxsssssxs.setBackgroundColor(0x00ffffff);
+                    gapviewxsssssxs.setLayoutParams(new LayoutParams(gapwidthxsssssxs,LayoutParams.MATCH_PARENT));
+                    lin5down. addView(gapviewxsssssxs);
+
                     lin5down.addView(rela);
 
                     //ddView(iv51);
                     addView(lin5up);
+
+
+                    int gapwidthxsssssxss=(int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, gapdp,dmx5);
+                    View gapviewxsssssxss=new View(context);
+                    gapviewxsssssxss.setBackgroundColor(0x00ffffff);
+                    gapviewxsssssxss.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT,gapwidthxsssssxss));
+                    addView(gapviewxsssssxss);
+
                     addView(lin5down);
 
 
+
                     if (!TextUtils.isEmpty(urls.get(0)))
-                        ImageLoader.getInstance().displayImage(urls.get(0), iv51,DisplayImageOptions.createSimple());
+                     ImageLoader.getInstance(loader).loadImagefromeNetwork(urls.get(0), iv51);
                     if (!TextUtils.isEmpty(urls.get(1)))
-                        ImageLoader.getInstance().displayImage(urls.get(1), iv52,DisplayImageOptions.createSimple());
+               ImageLoader.getInstance(loader).loadImagefromeNetwork(urls.get(1), iv52);
                     if (!TextUtils.isEmpty(urls.get(2)))
-                        ImageLoader.getInstance().displayImage(urls.get(2), iv53,DisplayImageOptions.createSimple());
+              ImageLoader.getInstance(loader).loadImagefromeNetwork(urls.get(2), iv53);
                     if (!TextUtils.isEmpty(urls.get(3)))
-                        ImageLoader.getInstance().displayImage(urls.get(3), iv54,DisplayImageOptions.createSimple());
+             ImageLoader.getInstance(loader).loadImagefromeNetwork(urls.get(3), iv54);
                     if (!TextUtils.isEmpty(urls.get(4)))
-                        ImageLoader.getInstance().displayImage(urls.get(4), iv55,DisplayImageOptions.createSimple());
+               ImageLoader.getInstance(loader).loadImagefromeNetwork(urls.get(4), iv55);
+
+                    iv51.setOnClickListener(new OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            if(itemclicklistener!=null)
+                                itemclicklistener.onItemClickListener(v,0);
+                        }
+                    });
+                    iv52.setOnClickListener(new OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            if(itemclicklistener!=null)
+                                itemclicklistener.onItemClickListener(v,1);
+                        }
+                    });
+
+                    iv53.setOnClickListener(new OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            if(itemclicklistener!=null)
+                                itemclicklistener.onItemClickListener(v,2);
+                        }
+                    });
+                    iv54.setOnClickListener(new OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            if(itemclicklistener!=null)
+                                itemclicklistener.onItemClickListener(v,3);
+                        }
+                    });
+
+                    rela.setOnClickListener(new OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            if(itemclicklistener!=null)
+                                itemclicklistener.onItemClickListener(v,4);
+                        }
+                    });
 
 
 
@@ -719,8 +1020,13 @@ public class FamilyBookView extends LinearLayout {
                     if(urls.size()>showpicnum)
                     {
                         restnum=  urls.size()-showpicnum;
+                        if(restnum>99)
+                        {
+                            restnum=99;
+                        }
+
                         ivt5txt.setText("+" + restnum);
-                        ivt5txt.setTextSize(20);
+                        ivt5txt.setTextSize(overnumtextsize);
                         ivt5txt.setBackgroundColor(0x80716f70);
 
                         ivt5txt.setVisibility(VISIBLE);
@@ -730,6 +1036,8 @@ public class FamilyBookView extends LinearLayout {
                     {
                         ivt5txt.setVisibility(GONE);
                     }
+                    rela.addView(iv55);
+                    rela.addView(ivt5txt);
 
                     /*iv51.setBackgroundColor(getResources().getColor(android.R.color.holo_blue_light));
 
@@ -745,5 +1053,7 @@ public class FamilyBookView extends LinearLayout {
         }
 
     }
+
+
 
 }
