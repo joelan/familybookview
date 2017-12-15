@@ -29,10 +29,10 @@ compile 'com.lrq.view:fbviewlibrary:1.0.1'
 ```
 #### (2)在代码里，传url列表和图片加载Loader到FBview里（setpics调用的时候也同时开始图片加载展现了）
 ```java
-List<String> urls;
-urls=new ArrayList<>();
-     urls.add("http://www.wallcoo.com/animal/MX069_Pretty_Puppies_puppy_garden_adventure/wallpapers/1920x1080/Garden_adventure_of_the_little_puppy_photos_pictures_puppy_MIL56021.jpg");
-urls.add("http://img1.3lian.com/2015/a2/246/d/58.jpg");
+
+List<String> urls=new ArrayList<>();
+urls.add("图片url 1");
+urls.add("图片url 2");
 
 //传网络图片url列表到fbview里，并传进实现om.viewlrq.customview.Loader接口的类进行图片加载，具体实现参考Demo。
 fbview.setPics(urls,new MyImageLoader());
