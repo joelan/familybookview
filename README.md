@@ -1,4 +1,5 @@
-# familybookview
+# 亲云APP里的家庭圈动态列表里图片展示控件
+
 ## 仿facebook  好友动态ListViewitem里面的图片布局格局，根据图片数量个数，出现不一样的图片布局。
 
 ## 截图：
