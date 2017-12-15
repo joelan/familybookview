@@ -34,7 +34,7 @@ List<String> urls=new ArrayList<>();
 urls.add("图片url 1");
 urls.add("图片url 2");
 
-//传网络图片url列表到fbview里，并传进实现om.viewlrq.customview.Loader接口的类进行图片加载，具体实现参考Demo。
+//传网络图片url列表到fbview里，并传进实现om.viewlrq.customview.Loader接口的类进行图片加载(根据自己需要自行选择图片加载框架)，具体实现参考Demo。
 fbview.setPics(urls,new MyImageLoader());
 
 //设置每一个图片点击事件
