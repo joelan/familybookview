@@ -1,6 +1,8 @@
 # 亲云APP里的家庭圈动态列表里图片展示控件
-
+[ ![Download](https://api.bintray.com/packages/joelan/maven/facebookview/images/download.svg) ](https://bintray.com/joelan/maven/facebookview/_latestVersion)
 ## 仿facebook  好友动态ListViewitem里面的图片布局格局，根据图片数量个数，出现不一样的图片布局。
+
+
 ### 附亲云app下载链接
 [亲云](http://sj.qq.com/myapp/detail.htm?apkName=com.kinwind)
 
@@ -16,7 +18,7 @@
 ### 依赖库分发在Jcenter。
 ```groovy
 dependencies {
-compile 'com.lrq.view:fbviewlibrary:1.0.1'
+compile 'com.lrq.view:fbviewlibrary:latestVersion'
 }
 ```
 
